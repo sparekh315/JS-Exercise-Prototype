@@ -19,7 +19,6 @@ Airplane.prototype.land = function () {
   this.isFlying = false;
 };
 
-
 /*
 // 👇 COMPLETE YOUR WORK BELOW 👇
 // 👇 COMPLETE YOUR WORK BELOW 👇
@@ -28,28 +27,80 @@ Airplane.prototype.land = function () {
 
 /*
   TASK 1
-    - Write a Person Constructor that initializes `name` and `age` from arguments.
-    - All instances of Person should initialize with an empty `stomach` array.
-    - Give instances of Person the ability to `.eat("someFood")`:
-        + When eating an edible, it should be pushed into the `stomach`.
-        + The `eat` method should have no effect if there are 10 items in the `stomach`.
-    - Give instances of Person the ability to `.poop()`:
-        + When an instance poops, its `stomach` should empty.
+    - -Write a Person Constructor that initializes `name` and `age` from arguments.
+    - -All instances of Person should initialize with an empty `stomach` array.
+    - -Give instances of Person the ability to `.eat("someFood")`:
+        -+ When eating an edible, it should be pushed into the `stomach`.
+        -+ The `eat` method should have no effect if there are 10 items in the `stomach`.
+    - -Give instances of Person the ability to `.poop()`:
+        -+ When an instance poops, its `stomach` should empty.
     - Give instances of Person a method `.toString()`:
         + It should return a string with `name` and `age`. Example: "Mary, 50"
 */
 
-function Person() {
+//Write a Person Constructor that initializes `name` and `age` from arguments.
+//All instances of Person should initialize with an empty `stomach` array.
+function Person(attributes) {
+  this.name = attributes.name;
+  this.age = attributes.age;
+  this.stomach = [];
+};
 
-}
 
-/*
+//-Give instances of Person the ability to `.eat("someFood")`:
+//+ -When eating an edible, it should be pushed into the `stomach`.
+//+ -The `eat` method should have no effect if there are 10 items in the `stomach`.
+Person.prototype.eat = function (food) 
+{
+    if(this.stomach.length < 10) {
+      this.stomach.push(food);
+    };
+};
+
+//- -Give instances of Person the ability to `.poop()`:
+        //-+ When an instance poops, its `stomach` should empty.
+Person.prototype.poop = function(){
+  this.stomach = [];
+};
+
+//- Give instances of Person a method `.toString()`:
+        //+ It should return a string with `name` and `age`. Example: "Mary, 50"
+
+Person.prototype.toString = function() 
+{
+  return `${this.name}, ${this.age}`
+};
+
+const personOne = new Person({
+  name: 'Hannah',
+  age: 32,
+});
+
+console.log(personOne);
+console.log(personOne.eat('pizza'));
+console.log(personOne.eat('tacos'));
+console.log(personOne.poop());
+console.log(personOne.stomach);
+console.log(personOne.toString());
+
+
+
+
+
+
+
+
+
+
+
+
+        /*
   TASK 2
-    - Write a Car constructor that initializes `model` and `milesPerGallon` from arguments.
-    - All instances built with Car:
-        + should initialize with an `tank` at 0
-        + should initialize with an `odometer` at 0
-    - Give cars the ability to get fueled with a `.fill(gallons)` method. Add the gallons to `tank`.
+    -- Write a Car constructor that initializes `model` and `milesPerGallon` from arguments.
+   - - All instances built with Car:
+        -+ should initialize with an `tank` at 0
+       - + should initialize with an `odometer` at 0
+    -- Give cars the ability to get fueled with a `.fill(gallons)` method. Add the gallons to `tank`.
     - STRETCH: Give cars ability to `.drive(distance)`. The distance driven:
         + Should cause the `odometer` to go up.
         + Should cause the the `tank` to go down taking `milesPerGallon` into account.
@@ -57,9 +108,32 @@ function Person() {
         + The `drive` method should return a string "I ran out of fuel at x miles!" x being `odometer`.
 */
 
-function Car() {
 
+//- Write a Car constructor that initializes `model` and `milesPerGallon` from arguments.
+    //- All instances built with Car:
+        //+ should initialize with an `tank` at 0
+       // + should initialize with an `odometer` at 0
+function Car(attributes) {
+  this.model = attributes.model;
+  this.milesPerGallon = attributes.milesPerGallon;
+  this.tank = 0;
+  this.odometer = 0;
 }
+
+//- Give cars the ability to get fueled with a `.fill(gallons)` method. Add the gallons to `tank`.
+
+Car.prototype.fill = function(gallons) {
+  return this.tank += gallons;
+}
+
+
+
+const carOne = new Car ({
+  model: 'Civic',
+  milesPerGallon: 32,
+});
+
+
 
 /*
   TASK 3
@@ -68,8 +142,15 @@ function Car() {
     - Besides the methods on Person.prototype, babies have the ability to `.play()`:
         + Should return a string "Playing with x", x being the favorite toy.
 */
-function Baby() {
+function Baby(name, age, favoriteToy) {
+    Person.call(this,name,age );
+    this.favoriteToy = favoriteToy;
+}
 
+Baby.prototype = Object.create(Person.prototype);
+
+Baby.prototype.play = function(){
+  return `Playing with ${this.favoriteToy}`;
 }
 
 /* 
@@ -79,7 +160,7 @@ function Baby() {
   1. 
   2. 
   3. 
-  4. 
+  4.  
 */
 
 
